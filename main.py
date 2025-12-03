@@ -49,7 +49,8 @@ async def create_owner():
             )
 
             if existing_user:
-                raise HTTPException(status_code=400 ,detail="User with given name or email already exists")
+                print("Owner Already Exist")
+                return
             
             hashed_password = Auth.hash_password(password)
 
@@ -62,6 +63,7 @@ async def create_owner():
 
             session.add(new_user)
             await session.commit()
+            print("Owner Created")
     
     except Exception as e:
         print("Owner-Createion-Error : " ,e)
@@ -122,6 +124,10 @@ async def signup(req:Request ,payload:SignupPayload):
 
     try:
         async with async_session_maker() as session:
+
+            if payload.name.strip() == "" or payload.email.strip() == "" or payload.password.strip() == "":
+                raise HTTPException(status_code=400 ,detail="name/email/password connot be empty")
+            
             existing_user = await session.scalar(
                 select(User).where(
                     or_(
@@ -266,7 +272,7 @@ async def post_fetch_helper(user:User ,post_id:int ,session):
     block_relation = await session.scalar(
         select(UserBlock).where(
             UserBlock.blocker_id == post.user_id,
-            UserBlock.blocked_id == user.user_id
+            UserBlock.blocked_id == user.id
         )
     )
 
@@ -372,6 +378,9 @@ async def block_user(req:Request ,target_user_id:int):
                 raise HTTPException(status_code=400 ,detail="You cannot block yourself")
 
             blocked_user:User = await get_user_helper(user_id = target_user_id ,sesssion = session)
+            if blocked_user.role == OWNER_ROLE or blocked_user.role == ADMIN_ROLE:
+                raise HTTPException(status_code=403 ,detail="You cannot block owner/admin")
+
             
             existing_block = await session.scalar(
                 select(UserBlock).where(
@@ -519,6 +528,9 @@ async def create_admin(req:Request ,payload:AdminCreatePayload):
     
     try:
         async with async_session_maker() as session:
+
+            if payload.admin_name.strip() == "" or payload.admin_email.strip() == "" or payload.admin_password.strip() == "":
+                raise HTTPException(status_code=400 ,detail="name/email/password connot be empty")
 
             user:User = await get_user_helper(user_id = token_data.user_id ,sesssion = session)
 
@@ -700,4 +712,5 @@ async def delete_post(req:Request ,post_id:int):
                 
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", host="0.0.0.0", port=8000 ,reload = True)
+    port = int(os.environ.get("PORT"))
+    uvicorn.run("main:app", host="0.0.0.0", port=port ,reload = True)
