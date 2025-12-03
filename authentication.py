@@ -11,8 +11,6 @@ load_dotenv()
 
 class TokenData(BaseModel):
     user_id:int
-    user_name:str
-    role:str
     exp:datetime
 
 LOGINE_SESSION_KEY = os.getenv("LOGINKEY")
@@ -32,8 +30,6 @@ class Authentication:
 
         payload = TokenData(
             user_id = user.id ,
-            user_name = user.name,
-            role = user.role,
             exp = datetime.now(timezone.utc) + timedelta(hours = LOGIN_EXPIRY_HOURS)
         ).model_dump()
 
