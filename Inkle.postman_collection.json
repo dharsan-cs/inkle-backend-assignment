@@ -1,0 +1,345 @@
+{
+	"info": {
+		"_postman_id": "3b64a2cd-9f11-43f5-b016-2e164c2064cc",
+		"name": "Inkle",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38272652"
+	},
+	"item": [
+		{
+			"name": "signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"dharsan\",\r\n  \"email\": \"dharsan2004dec@gmail.com\",\r\n  \"password\": \"gd001122\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/signup",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name_or_email\": \"dharsan\",\r\n  \"password\": \"gd001122\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/login",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create_post",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{login_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\": \"fast api is async\",\r\n  \"content\": \"i have built/deployed many apps with fastapi\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/create_post",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"create_post"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "view_post",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{login_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/posts/1",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"posts",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "like_post",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{login_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/like_post/1",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"like_post",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user_block",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{login_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/block_user/3",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"block_user",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user_follow",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{login_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/follow_user/1",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"follow_user",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "activity_wall",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{login_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/event_logs?offset=0&limit=100",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"event_logs"
+					],
+					"query": [
+						{
+							"key": "offset",
+							"value": "0"
+						},
+						{
+							"key": "limit",
+							"value": "100"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create_admin",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{login_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"admin_name\": \"kalai\",\r\n  \"admin_email\": \"kalai@email.com\",\r\n  \"admin_password\": \"kalai\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/create_admin",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"create_admin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete_user",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{login_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/delete_user/3",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"delete_user",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete_post",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{login_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/delete_post/1",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"delete_post",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": ""
+		},
+		{
+			"key": "login_token",
+			"value": ""
+		}
+	]
+}
