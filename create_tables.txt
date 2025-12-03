@@ -1,0 +1,68 @@
+
+CREATE TABLE user (
+	id INTEGER NOT NULL AUTO_INCREMENT, 
+	name VARCHAR(255) NOT NULL, 
+	email VARCHAR(255) NOT NULL, 
+	password VARCHAR(255), 
+	`role` VARCHAR(255), 
+	created_on DATETIME DEFAULT now(), 
+	PRIMARY KEY (id)
+)
+
+
+CREATE TABLE event_log (
+	id INTEGER NOT NULL AUTO_INCREMENT, 
+	actor_id INTEGER NOT NULL, 
+	actor_name VARCHAR(255) NOT NULL, 
+	actor_role VARCHAR(255) NOT NULL, 
+	action VARCHAR(255) NOT NULL, 
+	target_type VARCHAR(255), 
+	target_id INTEGER, 
+	target_user_name VARCHAR(255), 
+	created_on DATETIME DEFAULT now(), 
+	PRIMARY KEY (id), 
+	FOREIGN KEY(actor_id) REFERENCES user (id)
+)
+
+
+CREATE TABLE post (
+	id INTEGER NOT NULL AUTO_INCREMENT, 
+	user_id INTEGER NOT NULL, 
+	title VARCHAR(1020), 
+	content TEXT NOT NULL, 
+	created_on DATETIME DEFAULT now(), 
+	post_likes INTEGER, 
+	PRIMARY KEY (id), 
+	FOREIGN KEY(user_id) REFERENCES user (id)
+)
+
+
+CREATE TABLE user_block (
+	id INTEGER NOT NULL AUTO_INCREMENT, 
+	blocker_id INTEGER NOT NULL, 
+	blocked_id INTEGER NOT NULL, 
+	PRIMARY KEY (id), 
+	FOREIGN KEY(blocker_id) REFERENCES user (id), 
+	FOREIGN KEY(blocked_id) REFERENCES user (id)
+)
+
+
+CREATE TABLE user_follow (
+	id INTEGER NOT NULL AUTO_INCREMENT, 
+	follower_id INTEGER NOT NULL, 
+	followed_id INTEGER NOT NULL, 
+	PRIMARY KEY (id), 
+	FOREIGN KEY(follower_id) REFERENCES user (id), 
+	FOREIGN KEY(followed_id) REFERENCES user (id)
+)
+
+
+CREATE TABLE post_like (
+	id INTEGER NOT NULL AUTO_INCREMENT, 
+	user_id INTEGER NOT NULL, 
+	post_id INTEGER NOT NULL, 
+	PRIMARY KEY (id), 
+	FOREIGN KEY(user_id) REFERENCES user (id), 
+	FOREIGN KEY(post_id) REFERENCES post (id)
+)
+
