@@ -1,10 +1,5 @@
 Introduction :
-  
-  I used MySQL as the primary database and Redis for caching, storing the most recent N events with sorted sets and 
-  using HSET for event, post, and user key-value data. Each Docker instance runs a background job to maintain cache size. 
-  FastAPI was chosen for high concurrency, and JWT was used for secure session verification. I implemented composite indexes 
-  to speed up frequent paired-column searches (is_liked, is_blocked, is_followed), added proper error handling, and Built a 
-  social activity feed with proper role-based data handling.
+  I used MySQL as the primary database and Redis for caching, storing the most recent N events with sorted sets and using HSET for event, post, and user key-value data. Each Docker instance runs a background job to maintain cache size. FastAPI was chosen for high concurrency, and JWT was used for secure session verification. I implemented composite indexes to speed up frequent paired-column searches (is_liked, is_blocked, is_followed), added proper error handling, and Built a social activity feed with proper role-based data handling.
 
 
 Challenges / Optimizations Performed
